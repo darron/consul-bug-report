@@ -14,11 +14,13 @@ cp consul/variables.dist consul/variables.tf
 vi variables.tf
 ```
 
-Then update the `DD_API` key in `consul/scripts/datadog.sh` - when the bootstrap and server nodes boot - make sure to add 'role:consul-server' to them in the web UI so that you can aggregate the data.
+Then update the `DD_API` key in `consul/scripts/datadog.sh` - when the bootstrap and server nodes boot - make sure to add 'role:consul-server' to them in the web UI so that you can aggregate the data. You can sign up for a [free account to test](https://www.datadoghq.com/) - click on "Get Started Free".
 
 Boot the cluster with `cd consul && terraform apply`. Once the cluster is up and running, give it a few minutes to settle down. This is how it looks at rest:
 
 [http://shared.froese.org/2015/f01gy-13-10.jpg](http://shared.froese.org/2015/f01gy-13-10.jpg)
+
+NOTE: We saw problems at just over 100 nodes - we're spinning up 120 by default - at .02 / hour it's a very cheap test.
 
 To get it into an unstable mode, first, ssh to a server or bootstrap node:
 
