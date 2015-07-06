@@ -4,7 +4,7 @@ Consul Bug Report
 First - build the AMI:
 
 ```
-packer build -only=amazon-ebs packer.json
+packer build packer.json
 ```
 
 Then you need to copy and update the variables file:
