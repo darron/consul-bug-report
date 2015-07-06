@@ -55,6 +55,7 @@ Pick 3 random client nodes and login - every minute stop or start Consul on each
 Doing this - I was able to make the cluster very unstable and lose quorum over and over:
 
 [http://shared.froese.org/2015/lw2mf-11-03.jpg](http://shared.froese.org/2015/lw2mf-11-03.jpg)
+
 [http://shared.froese.org/2015/cobi3-14-13.jpg](http://shared.froese.org/2015/cobi3-14-13.jpg)
 
 Once you've have enough debugging - you can calm it all down like this:
