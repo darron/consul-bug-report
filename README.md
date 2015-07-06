@@ -1,7 +1,7 @@
 Consul Bug Report
 ===========================
 
-First - build the AMI:
+First - make sure you've setup the [ENV variables you need for AWS](https://www.packer.io/docs/builders/amazon-ebs.html), then build the AMI:
 
 ```
 packer build packer.json
