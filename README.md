@@ -1,6 +1,10 @@
 Consul Bug Report
 ===========================
 
+**IMPORTANT NOTE:** Consul 0.6.x has fixed this particular problem. I have been testing it at more than 4 times the previous limit - where it was dead and it's fine.
+
+**Great work Hashicorp, @slackpad and @armon!**
+
 First - make sure you've setup the [ENV variables you need for AWS](https://www.packer.io/docs/builders/amazon-ebs.html), then build the AMI:
 
 ```
@@ -45,9 +49,14 @@ consulkv set services/spiros 1
 consul event -service datadog -name destress
 consul event -service datadog -name stress
 # Get Consul Template going.
-consul exec -service datadog "cd /tmp && wget https://gist.githubusercontent.com/darron/3bb437e2a69373162942/raw/a8dcbae481cb7cbae7a75699b16e2e807d54b35f/services.cfg"
+consul exec -service datadog "cd /tmp && rm -f services.cfg"
+consul exec -service datadog "cd /tmp && wget https://gist.githubusercontent.com/darron/bf8dd32540d1dc09dac3/raw/433910515fd7a7070cbfe5a932363ec9f43a3688/services.cfg"
 consul exec -service datadog "cd /tmp && wget https://gist.githubusercontent.com/darron/22c88190b69b5f20095f/raw/66fba5b4fead6255589ba01fb8306671ddf428b0/services.ctmpl"
 consul exec -service datadog "consul-template -config /tmp/services.cfg &"
+consul exec -service datadog "cd /tmp && wget https://gist.githubusercontent.com/darron/a4e5a51325dc7d4feddf/raw/2673f9438c0a740125ad0071ea7efade8a477c49/consul-template.conf"
+consul exec -service datadog "cd /tmp && chmod 644 consul-template.conf && sudo mv consul-template.conf /etc/init/"
+consul exec -service datadog "cd /etc/init.d/ && sudo ln -s /lib/init/upstart-job consul-template"
+consul exec -service datadog "sudo service consul-template start"
 ```
 
 Pick 3 random client nodes and login - every minute stop or start Consul on each node. Rotate back and forth. This makes Consul Template run at least every minute.
